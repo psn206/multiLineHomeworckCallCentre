@@ -2,24 +2,28 @@ import java.util.Queue;
 
 public class Operator implements Runnable {
     final Queue<Integer> callQueue;
-    final private Thread atsCall;
+
+    private Integer numberCall;
     final private int CONVERSATION_OPERATOR = 3000;
 
-    public Operator(Queue<Integer> callQueue, Thread atsCall) {
+    public Operator(Queue<Integer> callQueue) {
         this.callQueue = callQueue;
-        this.atsCall = atsCall;
     }
 
     @Override
     public void run() {
-        while (atsCall.isAlive()) {
+        while (callQueue.size() > 0) {
             try {
                 Thread.sleep(CONVERSATION_OPERATOR);
-                System.out.println(Thread.currentThread().getName() + " принял звонок от абонента " + callQueue.poll());
+                numberCall = callQueue.poll();
+                if (numberCall != null) {
+                    System.out.println(Thread.currentThread().getName() + ": принял звонок от абонента " + numberCall);
+                } else {
+                    System.out.println(Thread.currentThread().getName() + ":звонков для обработки больше нет.");
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
     }
 }

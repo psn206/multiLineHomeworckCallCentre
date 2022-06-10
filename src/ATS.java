@@ -2,24 +2,25 @@ import java.util.Queue;
 
 public class ATS implements Runnable {
     final private Queue<Integer> callQueue;
-    final public int numberСalls = 60;
-    public int timeWorck = 20;
-    final public int CALLS_TO = 1000;
+    private int numberСalls = 60;
+    public int lastBell = 1;
+    final private int callsTo = 1000;
 
     public ATS(Queue<Integer> callQueue) {
         this.callQueue = callQueue;
+        for (int i = callQueue.size(); i < numberСalls; i++) {
+            callQueue.add(i);
+        }
     }
 
     @Override
     public void run() {
-        while (timeWorck > 0) {
+        System.out.println(callQueue.size());
+        while (callQueue.size() > lastBell) {
             try {
-                Thread.sleep(CALLS_TO);
-                System.out.println(" Поступило звонков " + numberСalls);
-                for (int i = callQueue.size(); i < numberСalls; i++) {
-                    callQueue.add(i);
-                }
-                timeWorck--;
+                Thread.sleep(callsTo);
+                System.out.println("Поступило звонков " + callQueue.size());
+                callQueue.add(numberСalls++);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
