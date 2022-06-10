@@ -1,7 +1,7 @@
 import java.util.Queue;
 
 public class Operator implements Runnable {
-    final Queue<Integer> callQueue;
+    final private Queue<Integer> callQueue;
 
     private Integer numberCall;
     final private int CONVERSATION_OPERATOR = 3000;
