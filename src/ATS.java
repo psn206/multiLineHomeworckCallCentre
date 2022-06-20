@@ -15,7 +15,6 @@ public class ATS implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(callQueue.size());
         while (callQueue.size() > lastBell) {
             try {
                 Thread.sleep(callsTo);

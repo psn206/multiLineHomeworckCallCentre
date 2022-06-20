@@ -14,8 +14,8 @@ public class Operator implements Runnable {
     public void run() {
         while (callQueue.size() > 0) {
             try {
-                Thread.sleep(CONVERSATION_OPERATOR);
                 numberCall = callQueue.poll();
+                Thread.sleep(CONVERSATION_OPERATOR);
                 if (numberCall != null) {
                     System.out.println(Thread.currentThread().getName() + ": принял звонок от абонента " + numberCall);
                 } else {
